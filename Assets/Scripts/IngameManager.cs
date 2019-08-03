@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class IngameManager : MonoBehaviour
 {
+    
     public FloorScroller Scroller;
+    public DataController dataController;
 
     private void Awake()
     {
@@ -20,8 +22,12 @@ public class IngameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.anyKeyDown)
+        if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
         {
+            int ClickMove = dataController.GetClickMove();
+
+            dataController.AddMove(ClickMove);
+            //Move += ClickMove;
             Scroller.MoveFloor();
         }
     }
