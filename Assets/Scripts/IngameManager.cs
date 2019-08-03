@@ -23,14 +23,7 @@ public class IngameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
-        {
-            int ClickMove = dataController.GetClickMove();
-
-            dataController.AddMove(ClickMove);
-            //Move += ClickMove;
-            Scroller.MoveFloor();
-        }
+        
     }
 
     private void LateUpdate()
