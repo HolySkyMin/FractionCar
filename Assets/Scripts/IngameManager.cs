@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class IngameManager : MonoBehaviour
 {
-    
+    public static IngameManager Instance { get; private set; }
+
     public FloorScroller Scroller;
     public DataController dataController;
 
     private void Awake()
     {
-        
+        Instance = this;
     }
 
     // Start is called before the first frame update
