@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 [RequireComponent(typeof(Collider2D))]
 public class Character : MonoBehaviour
 {
@@ -14,12 +15,12 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
         //CurrentLine = 0;
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
-                
+        
     }
     // Update is called once per frame
     private void Update()
@@ -28,8 +29,9 @@ public class Character : MonoBehaviour
         // TODO: 오브젝트 움직이는 기능 : 양엎으로까지.
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
         {
+            
             int ClickMove = dataController.GetClickMove();
-
+            dataController.AddSlider(ClickMove);        
             dataController.AddMove(ClickMove);
             //Move += ClickMove;
             Scroller.MoveFloor();
