@@ -7,7 +7,7 @@ public class IngameManager : MonoBehaviour
     public static IngameManager Instance { get; private set; }
 
     public FloorScroller Scroller;
-    public DataController dataController;
+    public DataController Data;
 
     private void Awake()
     {

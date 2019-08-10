@@ -35,11 +35,9 @@ public class Character : MonoBehaviour
         // TODO: 오브젝트 움직이는 기능 : 양엎으로까지.
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
         {
-            
-            int ClickMove = dataController.GetClickMove();
-            dataController.AddSlider(ClickMove);        
-            dataController.AddMove(ClickMove);
-            //Move += ClickMove;
+
+            int ClickMove = IngameManager.Instance.Data.DeltaTravel;
+            IngameManager.Instance.Data.CurTravel += ClickMove;       
             Scroller.MoveFloor();
             
         }

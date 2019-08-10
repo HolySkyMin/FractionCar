@@ -11,14 +11,18 @@ public class DataController : MonoBehaviour
     private int m_slider = 0;
     private int m_level = 0;
 
+    public int CurTravel;
+    public int DeltaTravel = 1;
+    public int RequireTravel;
+    public int StageLevel;
 
     private void Awake()
     {
-        PlayerPrefs.DeleteAll();
-        m_level = PlayerPrefs.GetInt("Level", 1);
-        m_Move = PlayerPrefs.GetInt("Move");
-        m_ClickMove = PlayerPrefs.GetInt("ClickMove", 1);
-        m_slider = PlayerPrefs.GetInt("Slider");
+        //PlayerPrefs.DeleteAll();
+        //m_level = PlayerPrefs.GetInt("Level", 1);
+        //m_Move = PlayerPrefs.GetInt("Move");
+        //m_ClickMove = PlayerPrefs.GetInt("ClickMove", 1);
+        //m_slider = PlayerPrefs.GetInt("Slider");
     }
     public void SetLevel(int newLevel)
     {

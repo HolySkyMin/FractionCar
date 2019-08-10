@@ -7,39 +7,25 @@ public class SliderManager : MonoBehaviour
 {
     public static int[] MaxTravel = { 5, 15, 30, 100, 400, 700, 3000 };
     public Slider slider;
-    public DataController dataController;
-    // Start is called before 
-    private int level;
-    public bool isLevel;
-    public int CurrentStage;
 
-    void Awake()
-    {
-        CurrentStage = 0;
-        level = dataController.GetLevel();
-    }
     public void LevelUp()
     {
-        dataController.SetSlider(0);
-        dataController.AddLevel(1);
-        CurrentStage += 1;
-
+        var data = IngameManager.Instance.Data;
+        data.StageLevel++;
+        data.CurTravel = 0;
+        data.RequireTravel = MaxTravel[data.StageLevel];
+        slider.maxValue = data.RequireTravel;
+        slider.value = data.CurTravel;
     }
+
     void Update()
     {
-        slider.maxValue = MaxTravel[CurrentStage];
-        slider.value = dataController.GetSlider();
+        slider.value = IngameManager.Instance.Data.CurTravel;
        
         if (slider.value == slider.maxValue)
         {
-            Debug.Log("stage  clear");
-            isLevel = true;
+            Debug.Log($"stage {IngameManager.Instance.Data.StageLevel} clear");
             LevelUp();
-            isLevel = false;
-            
         }
     }
 }
-// Update is called once per frame
-
-
