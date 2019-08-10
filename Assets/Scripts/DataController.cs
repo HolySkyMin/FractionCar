@@ -9,13 +9,31 @@ public class DataController : MonoBehaviour
     private int m_Move = 0;
     private int m_ClickMove = 0;
     private int m_slider = 0;
+    private int m_level = 0;
 
 
     private void Awake()
     {
+        PlayerPrefs.DeleteAll();
+        m_level = PlayerPrefs.GetInt("Level", 1);
         m_Move = PlayerPrefs.GetInt("Move");
         m_ClickMove = PlayerPrefs.GetInt("ClickMove", 1);
         m_slider = PlayerPrefs.GetInt("Slider");
+    }
+    public void SetLevel(int newLevel)
+    {
+        m_level = newLevel;
+        PlayerPrefs.SetInt("Level", m_level);
+    }
+    public void AddLevel(int newLevel)
+    {
+        m_level += newLevel;
+        SetLevel(m_level);
+       
+    }
+    public int GetLevel()
+    {
+        return m_level;
     }
 
     public void SetMove(int newMove)
@@ -64,3 +82,5 @@ public class DataController : MonoBehaviour
     } 
 
 }
+    
+

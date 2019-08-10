@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        Move_Text.text = "거리: " + dataController.GetMove()+"m";    
+        Move_Text.text = "레벨:" + dataController.GetLevel()+"  " + "총거리: " + dataController.GetMove()+"m";
+        
     }
 }

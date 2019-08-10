@@ -18,6 +18,7 @@ public class Item : MonoBehaviour
             
             
         }
+        
         // TODO: 여기서 아이템 먹는 효과를 구현
         // 게임 데이터 접근은 GameManager.Instance.Data로
         // 인게임 접근은 IngameManager.Instance로
@@ -26,4 +27,5 @@ public class Item : MonoBehaviour
     {
         
     }
+    
 }
