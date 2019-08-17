@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SliderManager : MonoBehaviour
 {
-    public static int[] MaxTravel = { 5, 15, 30, 100, 400, 700, 3000 };
+    public static int[] MaxTravel = { 0,500, 15, 30, 100, 400, 700, 3000 };
     public Slider slider;
 
     public void LevelUp()
