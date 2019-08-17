@@ -15,6 +15,8 @@ public class DataController : MonoBehaviour
     public int DeltaTravel = 1;
     public int RequireTravel;
     public int StageLevel;
+    public int CurMoney;
+    public int[] AbilityValue; // 상점에서 구매할 수 있는 능력들
 
     private void Awake()
     {
