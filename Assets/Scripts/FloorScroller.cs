@@ -26,7 +26,7 @@ public class FloorScroller : MonoBehaviour
 
         if (floorQueue.Peek().transform.localPosition.y <= Distance * -1)
         {
-            floorQueue.Peek().transform.localPosition = new Vector3(0, Distance, 0);
+            floorQueue.Peek().transform.localPosition += new Vector3(0, 2 * Distance, 0);
             floorQueue.Enqueue(floorQueue.Dequeue());
         }
     }
