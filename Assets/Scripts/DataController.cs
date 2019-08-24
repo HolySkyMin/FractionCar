@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class DataController : MonoBehaviour
 {
+    public static DataController Instance { get; set; }
+
     private int m_Move = 0;
     private int m_ClickMove = 0;
     private int m_slider = 0;
@@ -25,6 +27,16 @@ public class DataController : MonoBehaviour
         //m_Move = PlayerPrefs.GetInt("Move");
         //m_ClickMove = PlayerPrefs.GetInt("ClickMove", 1);
         //m_slider = PlayerPrefs.GetInt("Slider");
+
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+
+        AbilityValue = new int[3];
     }
     public void SetLevel(int newLevel)
     {

@@ -1,84 +1,81 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using DG.Tweening;
 
 [RequireComponent(typeof(Collider2D))]
 public class Character : MonoBehaviour
 {
-    
-    public bool CurrentLine;
-    public bool CurrentLine2;
-    public DataController dataController;
+    public int CurrentLine;
     public FloorScroller Scroller;
-    Vector3 vector;
-    Vector3 vector2;
+    public List<GameObject> Humans;
+    public GameObject Barrier, Booster;
 
-   
-    // Start is called before the first frame update
-    void Start()
+    public void Initialize()
     {
-        
-        //CurrentLine = 0;
+        Humans = new List<GameObject>();
+        for(int i = 0; i < IngameManager.Instance.Data.AbilityValue[0] + 1; i++)
+        {
+            var newHuman = Instantiate(Resources.Load<GameObject>("Prefabs/Human"));
+            newHuman.transform.SetParent(transform);
+            newHuman.SetActive(true);
+            Humans.Add(newHuman);
+        }
+        ResetHumanPosition();
     }
+
+    public void ResetHumanPosition()
+    {
+        float startPoint = -0.15f * (Humans.Count - 1);
+        for(int i = 0; i < Humans.Count; i++)
+            Humans[i].transform.localPosition = new Vector3(startPoint + 0.3f * i, -1, -0.1f);
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         
     }
+
     // Update is called once per frame
     private void Update()
     {
-        vector.x = -30;
-        vector2.x = 30;
-        CurrentLine = true;
-        // TODO: 오브젝트 움직이는 기능 : 양엎으로까지.
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.F))
         {
+            if(!IngameManager.Instance.HasStun)
+            {
+                IngameManager.Instance.CurTravel += IngameManager.Instance.DeltaTravel * (IngameManager.Instance.HasRunner ? 2 : 1);
+                Scroller.MoveFloor(IngameManager.Instance.HasRunner ? 2 : 1);
+                IngameManager.Instance.Spawner.TravelDistance += IngameManager.Instance.DeltaTravel;
 
-            int ClickMove = IngameManager.Instance.Data.DeltaTravel;
-            IngameManager.Instance.Data.CurTravel += ClickMove;       
-            Scroller.MoveFloor();
-            
-        }
-        if (vector.x == this.transform.position.x)
-        {
-            CurrentLine = false;
-        }
-        else
-        {
-            CurrentLine = true;
-        }
-        if (vector2.x == this.transform.position.x)
-        {
-            CurrentLine2 = false;
-        }
-        else
-        {
-            CurrentLine2 = true;
+                foreach (var human in Humans)
+                    human.GetComponent<SpriteRenderer>().flipX = !human.GetComponent<SpriteRenderer>().flipX;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (CurrentLine == true)
+            if(CurrentLine > 0 && !IngameManager.Instance.HasStun)
             {
-                this.transform.Translate(-30, 0, 0);
-                
+                CurrentLine--;
+                transform.DOLocalMoveX(IngameManager.Instance.LinePosition[CurrentLine].localPosition.x, 0.5f);
             }
-           
-
-
-
-
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow) && !IngameManager.Instance.HasStun)
         {
-            if (CurrentLine2 == true)
+            if(CurrentLine < 2)
             {
-                this.transform.Translate(30, 0, 0);
+                CurrentLine++;
+                transform.DOLocalMoveX(IngameManager.Instance.LinePosition[CurrentLine].localPosition.x, 0.5f);
             }
-            
         }
 
+        if (IngameManager.Instance.HasRunner)
+            Booster.SetActive(true);
+        else
+            Booster.SetActive(false);
+        if (IngameManager.Instance.HasBreaker)
+            Barrier.SetActive(true);
+        else
+            Barrier.SetActive(false);
     }
 }

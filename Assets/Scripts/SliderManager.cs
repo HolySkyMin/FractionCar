@@ -5,27 +5,20 @@ using UnityEngine.UI;
 
 public class SliderManager : MonoBehaviour
 {
-    public static int[] MaxTravel = { 0,500, 15, 30, 100, 400, 700, 3000 };
+    public static int[] MaxTravel = { 0, 500, 15, 30, 100, 400, 700, 3000 };
+    public Text MaxTravelText, TravelLeftText;
     public Slider slider;
 
-    public void LevelUp()
+    public void Load()
     {
-        var data = IngameManager.Instance.Data;
-        data.StageLevel++;
-        data.CurTravel = 0;
-        data.RequireTravel = MaxTravel[data.StageLevel];
-        slider.maxValue = data.RequireTravel;
-        slider.value = data.CurTravel;
+        slider.maxValue = IngameManager.Instance.RequireTravel;
+        MaxTravelText.text = IngameManager.Instance.RequireTravel.ToString("N0");
+        slider.value = 0;
     }
 
     void Update()
     {
-        slider.value = IngameManager.Instance.Data.CurTravel;
-       
-        if (slider.value == slider.maxValue)
-        {
-            Debug.Log($"stage {IngameManager.Instance.Data.StageLevel} clear");
-            LevelUp();
-        }
+        slider.value = IngameManager.Instance.CurTravel;
+        TravelLeftText.text = (IngameManager.Instance.RequireTravel - IngameManager.Instance.CurTravel).ToString("N0");
     }
 }
